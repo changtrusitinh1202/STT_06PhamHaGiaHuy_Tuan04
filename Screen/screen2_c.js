@@ -66,7 +66,7 @@ export default function screen2_c(){
                         <Text style={styles.text}>
                             Password length
                         </Text>
-                        <TextInput style={styles.passLength}  value={getLength(passWord)}>
+                        <TextInput style={styles.passLength} keyboardType="number-pad">
 
                         </TextInput>
                     </View>

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground,TextInput, Button, CheckBox} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather, Entypo ,AntDesign, FontAwesome   } from '@expo/vector-icons';
 
 const image = {uri: 'https://shop.congnghesongtin.com/datafiles/27121/upload/thumb_images/Phu%20kien%20cong%20nghe/Sandisk-USB-Sandisk-CZ430-mini-3_1-16GB-cong-nghe-song-tin%20%281%29.png'};
 
-const thongBao = () => {
-    alert("Chọn file");
-}
-export default function screen2_b(){
+    var arrayFeedBack = ['Tệ', 'Không hài lòng', 'Bình thường', 'Hài lòng', 'Cực kỳ hài lòng']
+    
 
+export default function screen2_b(){
+    const [rating, setRating] = useState(null)
+   
+      
     return(
+        
         <View style={styles.container} >
             <View style={styles.top}>
                 <ImageBackground
@@ -23,20 +26,25 @@ export default function screen2_b(){
             <View style={styles.center}>
                 <View style={styles.center_1}>
                     <View>
-                        <Text style={{fontWeight: '700', fontSize: '20px', textAlign: 'center', marginBottom: '20px'}}>Cực kỳ hài lòng</Text>
+                        <Text style={{fontWeight: '700', fontSize: '20px', textAlign: 'center', marginBottom: '20px'} }>{arrayFeedBack[rating-1]}</Text>
                     </View>
-                    <View style={styles.start}>
-                        <Entypo name="star" size={42} color="#FFCC33" />
-                        <Entypo name="star" size={42} color="#FFCC33" />
-                        <Entypo name="star" size={42} color="#FFCC33" />
-                        <Entypo name="star" size={42} color="#FFCC33" />
-                        <Entypo name="star" size={42} color="#FFCC33" />
+                    <View style={styles.start}>                     
+                        {[...Array(5)].map((star, index) => {
+                            const currentRate = index + 1; 
+                            return(
+                                <Entypo name="star" size={42} color={currentRate <= rating ? '#FFCC00' : 'gray'} onPress={() => setRating(currentRate)}  />
+                               
+                            )
+                          
+                        })
+                        
+                        }
                     </View>
                 </View>
                 <View style={styles.center_2}>
                     <TouchableOpacity style={styles.addImage} onPress={() => thongBao()}>
                         <Entypo name="camera" size={50} color="black" />
-                        <Text style={{fontSize: '20px', fontWeight: '700',marginLeft: '15px'}}>
+                        <Text style={{fontSize: '20px', fontWeight: '700',marginLeft: '15px'}} onPress={() => alert('Chọn ảnh')}> 
                             Thêm hình ảnh
                         </Text>
                     </TouchableOpacity>
@@ -61,6 +69,7 @@ export default function screen2_b(){
                 </TouchableOpacity>
             </View>
         </View>
+        
     );
 }
 
@@ -96,6 +105,7 @@ const styles = StyleSheet.create({
         width: '330px',
         marginBottom: '30px'
     },
+    
 
     addImage:{
         borderWidth: 1,
@@ -122,3 +132,4 @@ const styles = StyleSheet.create({
         height: '45px'
     }
 })
+
